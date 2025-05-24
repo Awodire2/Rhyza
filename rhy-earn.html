@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhy-Earn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background: blue;
+            color: white;
+            padding: 0.2rem 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        .task button {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .task button:hover {
+            background: blue;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .note {
+            display: block;
+            color: blue;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: blue;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="popupModal" class="modal">
+        <div class="modal-content">
+            <h2>Hey there Rhyzer!
+            </h2>
+            <p>Please complete the tasks available to earn rewards.</p>
+            <p>Note: You need to <span><a href="RhyzaNG.png" class="note">SUBSCRIBE</a></span>before you can start earning. After subscription, you get an <strong>id</strong> which will be used as password to get reward(s).</p>
+            <div class="buttons">
+                <button class="yes" onclick="continuePage()">Continue</button>
+                <button class="no" onclick="goBack()">Back to Rhyza</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Show the modal on page load
+        window.onload = function () {
+            document.getElementById('popupModal').style.display = 'block';
+        };
+
+        // Continue button action
+        function continuePage() {
+            document.getElementById('popupModal').style.display = 'none';
+        }
+
+        // Cancel button action
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <style>
+        .modalz {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-contentz {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .buttons .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .buttons .no {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .buttons .yes:hover {
+            background-color: #45a049;
+        }
+
+        .buttons .no:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+    <header>
+        <h1>Rhy-Earn</h1>
+    </header>
+    <div class="container">
+        <h1 style="color: blue;">Complete Tasks to Earn Rewards</h1>
+        <div class="task">
+            <span>Task 1: Share our website on social media</span>
+            <button><a href="rhy-taskz.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 2: Watch a promotional video</span>
+            <button><a href="rhy-taskz.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 3: Refer a friend</span>
+            <button><a href="rhy-taskz.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 4: Complete a survey</span>
+            <button><a href="rhy-taskz.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 5: Follow WhatsApp Groups ND Channels</span>
+            <button><a href="rhy-taskz.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 6: Follow Telegram Groups ND Channels </span>
+            <button><a href="tasks.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 7: Send Dance Videos</span>
+            <button><a href="tasks.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 8: Work for us</span>
+            <button><a href="tasks.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 8: Get a Rhyza Account</span>
+            <button><a href="tasks.html">Start Task</a></button>
+        </div>
+        <div class="task">
+            <span>Task 8: Engage in SVC on either WhatsApp or Telegram.</span>
+            <button><a href="tasks.html">Start Task</a></button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Rhyza. All rights reserved. <span style="text-align: right; padding-left: 1000px;"><a href="rhyzatapp.html">Terms and Privacy Policy.</a></span></p>
+    </footer>
+</body>
+
+</html>

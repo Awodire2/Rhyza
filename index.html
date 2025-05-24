@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="favicon.png" type="image/x-icon" />
+
+    <title>Rhyza</title>
+    <style>
+
+
+        body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: #111;
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #222;
+        }
+
+        header {
+            background: blue;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 2.8em;
+            letter-spacing: 3px;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: white;
+        }
+
+        header h1 a span {
+            font-size: 0.75em;
+            letter-spacing: 0px;
+            font-weight: 400;
+            color: pink;
+        }
+
+        header h2 a { text-decoration: none; color: pink; display:none; } 
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 6px 12px;
+            font-size: 1em;
+            border: none;
+            border-radius: 2px 0 0 2px;
+            width: 220px;
+            outline: none;
+        }
+
+        .search-bar button {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            font-weight: 600;
+            border-radius: 0 2px 2px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background: #990000;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .section-title {
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
+        }
+
+        /* Normal videos - landscape */
+        .video-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .normal-videos {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+
+        .video-card {
+            background: #fafafa;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-card:hover {
+            transform: scale(1.03);
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            border-radius: 0;
+            object-fit: cover;
+            background: black;
+        }
+
+        .video-thumb-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 16:9 aspect ratio */
+            overflow: hidden;
+        }
+
+        .video-thumb-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-info {
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-title {
+            font-size: 1.1em;
+            margin: 0 0 6px 0;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .video-desc {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+            flex-grow: 1;
+        }
+
+        .profile-name {
+            font-size: 0.9em;
+            color: black;
+            margin-bottom: 8px;
+            margin-top: 18.5px;
+            flex-grow: 1;
+        }
+
+
+        .video-stats {
+            font-size: 0.85em;
+            color: #999;
+            text-align: left;
+        }
+
+        .video-stat {
+            font-size: 0.95em;
+            color: red;
+            text-align: left;
+        }
+
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 7px;
+            flex-shrink: 0;
+        }
+
+        .superscript {
+            letter-spacing: 1px;
+        }
+
+.verified-badge {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.verified-badge img.gear-check-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+
+        .video-meta {
+            display: flex;
+            align-items: left;
+        }
+
+        h4 {
+            display: none;
+        }
+
+        /* Shorts - portrait smaller cards */
+        #shorts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin: 40px 0;
+            justify-items: center;
+        }
+
+        .shorts-card {
+            background: #fafafa;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: 140px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .shorts-card:hover {
+            transform: scale(1.07);
+        }
+
+        .shorts-thumb-container {
+            position: relative;
+            width: 100%;
+            padding-top: 177.77%;
+            /* 9:16 aspect ratio */
+            overflow: hidden;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            background: black;
+        }
+
+        .shorts-thumb-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .shorts-info {
+            padding: 8px 10px;
+            font-size: 0.9em;
+        }
+
+        .shorts-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .shorts-stats {
+            color: #777;
+            font-size: 0.8em;
+        }
+
+        footer {
+            background-color: blue;
+            text-align: center;
+            padding: 5px;
+            color: black;
+            margin-top: auto;
+            margin-top: 350px;
+        }
+
+
+        .hashtag {
+            color: rgb(235, 46, 77);
+        }
+
+        .at {
+            color: blue;
+        }
+
+        .at a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .rank {
+            opacity: 0.2;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.3em;
+                letter-spacing: 1px;
+            }
+
+            header h2 {
+                display: none;
+            }
+
+            .search-bar input {
+                width: 60px;
+                font-size: 8px;
+            }
+
+            .search-bar button {
+                font-size: 8px;
+                width: 30px;
+            }
+
+            .search-icon {
+                display: none;
+            }
+
+            .normal-videos {
+                grid-template-columns: 1fr;
+            }
+
+            #shorts {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                margin: 30px 0;
+            }
+
+            .shorts-card {
+                width: 120px;
+            }
+
+            #no-results-message {
+                font-size: 0.4em;
+            }
+
+            
+.follow-btn {
+  position: fixed;
+  right: 21%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 151px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.follow-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 192px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.previous-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 297px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.next-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 377px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.comment-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 503px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.share-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 603px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+
+.go-down-btn,
+.go-up-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 10px 14px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+}
+
+.go-down-btn {
+  top: 340px;
+}
+
+.go-up-btn {
+  top: 260px;
+}
+
+.share-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 560px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.comment-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 460px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+            
+        }
+    </style>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<body>
+    <header>
+                <h1><a href="rhyza.html">Rhyza<sup style="font-size: 26px;" class="supr">🎵</sup></a></h1>
+        <h2> <a href="adult18+page.html">Adult - 18+</a> </h2>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search Rhyza & #..." />
+            <button id="search-button">⌕ <span class="search-icon">Search</span></button>
+        </div>
+        <div id="no-results-message" style="color: white; margin-left: 20px; font-weight: 600; display: none;">
+            No Rhyza videos found matching your search. Try another keyword.
+        </div>
+        
+    </header>
+    <style>
+    @media (max-width: 768px) {
+
+            header {
+            background: blue;
+            color: white;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0;
+        }
+            header h1 {
+                font-size: 1.9em;
+                letter-spacing: 1px;
+            }
+
+            header h2 {
+                display: none;
+            }
+
+            .search-bar input {
+                width: 75px;
+                font-size: 12px;
+            }
+
+            .search-bar button {
+                font-size: 11px;
+                width: 45px;
+            }
+
+            .search-icon {
+                display: none;
+            }
+
+            .normal-videos {
+                grid-template-columns: 1fr;
+            }
+
+            #shorts {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                margin: 30px 0;
+            }
+
+            .shorts-card {
+                width: 120px;
+            }
+
+            .supr {
+                display: none;
+            }
+            
+            .previous-txt {
+                display: none;
+            }
+
+            
+.follow-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 151px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.follow-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 192px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.previous-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 297px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.next-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 377px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.comment-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 503px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.share-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 603px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+
+.go-down-btn,
+.go-up-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 10px 14px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+}
+
+.go-down-btn {
+  top: 340px;
+}
+
+.go-up-btn {
+  top: 260px;
+}
+
+.share-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 560px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.comment-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 460px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+
+        }
+        body  {
+            background-image: url('RhyzaSA.png');
+        }
+
+        .video-card {
+            background-color: #fdfaf5;
+        }
+    </style>
+    <div class="container">
+        <div class="section-title">Top</div>
+        <div class="video-grid normal-videos" id="normal-videos">
+            <div class="video-card" data-id="dance1" id="rhyza" id="officialrhyzavideowelcome">
+                <div class="video-thumb-container">
+                    <video muted preload="metadata" poster="Rhyza.png"
+                        src="Rhyza.mp4" playsinline
+                        loop controls>
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h4>officialrhyzavideowelcomegreeting</h4>
+                        <img class="avatar" src="rhyza.png" alt="Channel Avatar" onclick="window.open('Rhyza.png', '_blank')" />
+                    
+                            <p class="profile-name"><a href="verifiedrhyzer.html" style="text-decoration: none; color: black;">Rhyza<span class="verified-badge">
+  <img src="verifiedrhyzericon.png" alt="Verified" class="gear-check-icon" title="Official Verfied Account of Rhyza"></span></p></a> <span class="rank">Legend #1</span>
+  </div>
+                    <h3 class="video-title">Rhyza Welcome Greeting!</h3>
+                    <p class="video-desc">Welcoming you to Rhyza - A place where motion becomes temptation.</p>
+                    <p class="video-stats">694.8K views • 8 days ago</p>
+                </div>
+            </div>
+            <div class="video-card" data-id="dance2" id="rhyza" id="officialrhyzavideowelcome">
+                <div class="video-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_video_30001.jpg"
+                        src="rhyza_video_30001.mp4" playsinline
+                        loop controls>
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h4>toptanzaniacultureculturaldanceviewersbootytwerkshakingpartyluna_blissbouncing</h4>
+                        <img class="avatar" src="female_avatar0067.png" alt="Channel Avatar" onclick="window.open('Rhyza.png', '_blank')" />
+                    
+                            <p class="profile-name"><a href="verifiedrhyzer.html" style="text-decoration: none; color: black;">Luna Bliss<span class="verified-badge">
+  <img src="verifiedrhyzericon.png" alt="Verified" class="gear-check-icon" title="Verified Rhyzer"></span></p></a> <span class="rank">Legend #2</span>
+  </div>
+                    <h3 class="video-title">Tanzania cultural dance</h3>
+                    <p class="video-desc">Those b**ty bouncing at a Tanzania party<span class="hashtag">#top #luna_bliss #tanzania #viewers #dance #culture</span> <span class="at"><a href="verifiedrhyzer.html">@Rhyza Tanzania</a><span class="verified-badge">
+  <img src="verifiedrhyzericon.png" alt="Verified" class="gear-check-icon" title="Official Verified Account of Rhyza"></span></span></p>
+                    <p class="video-stats">234.0K views • 22 days ago</p>
+                </div>
+            </div>
+            <div class="video-card" data-id="dance3" id="rhyza" id="officialrhyzavideowelcome">
+                <div class="video-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_video_30003.jpg"
+                        src="rhyza_video_30003.mp4" playsinline
+                        loop controls>
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h4>topfredrebeccashakeittothemaxdancechoreography</h4>
+                        <img class="avatar" src="female_avatar001.png" alt="Channel Avatar" onclick="window.open('Rhyza.png', '_blank')" />
+                    
+                            <p class="profile-name"><a href="verifiedrhyzer.html" style="text-decoration: none; color: black;">Fred Rebecca<span class="verified-badge">
+  <img src="verifiedrhyzericon.png" alt="Verified" class="gear-check-icon" title="Verfied Rhyzer"></span></p></a> <span class="rank">Legend #8</span>
+  </div>
+                    <h3 class="video-title">Choreography - Shake it to the max</h3>
+                    <p class="video-desc">Shake it to the max special<span class="hashtag">#top #fredrebecca #shakeittothemax #dance #choreography</span> <span class="at"></p>
+                    <p class="video-stats">43.6K views • 19 days ago</p>
+                </div>
+            </div>
+            <div class="video-card" data-id="dance4" id="rhyza" id="officialrhyzavideowelcome">
+                <div class="video-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_video_30004.jpg"
+                        src="rhyza_video_30004.mp4" playsinline
+                        loop controls>
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h4>toplapdanceviewsmortygeemortygunmanshepracticedwithherbrotherclassical</h4>
+                        <img class="avatar" src="male_avatar003.png" alt="Channel Avatar" onclick="window.open('male_avatar003.png', '_blank')" />
+                    
+                            <p class="profile-name">Morty Gunman</p> <span class="rank">Captain #114</span>
+  </div>
+                    <h3 class="video-title">Classical Lapdance</h3>
+                    <p class="video-desc">She practiced lapdance with her brother<span class="hashtag">#top #lapdance #mortygee #views</span></p>
+                    <p class="video-stats">214.9K views • 4 months ago</p>
+                </div>
+            </div>
+            <div class="video-card" data-id="dance4" id="rhyza" id="officialrhyzavideowelcome">
+                <div class="video-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_18_video_20002.jpg"
+                        src="rhyza_18_video_20002.mp4" playsinline
+                        loop controls>
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h4>sensitivecontentbootyshaketopcheekclapping</h4>
+                        <img class="avatar" src="female_avatar001.png" alt="Channel Avatar" onclick="window.open('female_avatar001.png', '_blank')" />
+                    
+                            <p class="profile-name">TheLopez</p> <span class="rank">Field Marshal #88</span>
+  </div>
+                    <h3 class="video-title">Cheek clapping</h3>
+                    <p class="video-desc">Clap that big a** for me🥵<span class="hashtag">#top #bootyshake #sensitivecontent</span></p>
+                    <p class="video-stats">214.9K views • 4 months ago</p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="section-title">R <span style="color: #ff0078;">Pulse</span></div>
+        <div id="shorts">
+            <div class="shorts-card" data-id="short1">
+                <h4>quicktemptingdancemovesbootyshakingtwerkrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_18_shorts_00002.jpg"
+                        src="rhyza_18_shorts_00002.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Quick Tempting Dance Moves<span class="hashtag">#twerk #booty</span></h4>
+                    <p class="shorts-stats">40K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short2">
+                <h4>bootyshakethatassuplooooverhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_18_shorts_00003.jpg"
+                        src="rhyza_18_shorts_00003.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Shake that a** up loooove<span class="hashtag">#booty #shaking</span></h4>
+                    <p class="shorts-stats">97.5K views</p>
+                </div>
+            </div>
+             <div class="shorts-card" data-id="short3">
+                <h4>twerkitupbabybootyshakeassnakednuderhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_18_shorts_00001.jpg"
+                        src="rhyza_18_shorts_00001.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Twerk it up baby<span class="hashtag">#twerk</span></h4>
+                    <p class="shorts-stats">197.8K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short4">
+                <h4>twerkingthatphatassbootyfatnakednuderhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_18_shorts_00004.jpg"
+                        src="rhyza_18_shorts_00004.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Twerking that phat a** for daddy<span class="hashtag">#twerk</span></h4>
+                    <p class="shorts-stats">174.2K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short5">
+                <h4>bootyshakepyjamascaketightshakingrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10001.jpg"
+                        src="rhyza_shorts_10001.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Shaking that cake in a tight pyjamas<span class="hashtag">#booty #shake</span></h4>
+                    <p class="shorts-stats">67.0K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short6">
+                <h4>waistnowthat'satemptingchallengeassrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10002.jpg"
+                        src="rhyza_shorts_10002.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Now that's a waist tempting challenge<span class="hashtag">#twerk</span></h4>
+                    <p class="shorts-stats">23.2K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short7">
+                <h4>icouldnotresistthefatbootytempationasstwerkbuttbumbumwaistrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10009.jpg"
+                        src="rhyza_shorts_10009.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">I could not resist the phat booty temptation<span class="hashtag">#twerk</span></h4>
+                    <p class="shorts-stats">61.5K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short8">
+                <h4>icouldnotresistthefatbootytempationasstwerkbuttbumbumwaistallthatisneededialongandfatstickrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10010.jpg"
+                        src="rhyza_shorts_10010.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">All that is needed is a long nd fat stick<span class="hashtag">#twerk</span></h4>
+                    <p class="shorts-stats">41.8K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short9">
+                <h4>boobycompilationbreasttitsshakingrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poser="rhyza_shorts_10012.jpg"
+                        src="rhyza_shorts_10012.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Boob compilation<span class="hashtag">#boob</span></h4>
+                    <p class="shorts-stats">20.6K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short10">
+                <h4>twerkcompilationfatbootytempationasstwerkbuttbumbumwaistrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" pster="rhyza_shorts_10011 (1).jpg"
+                        src="rhyza_shorts_10011 (1).mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Twerk Compilation<span class="hashtag">#twerk</span></h4>
+                    <p class="shorts-stats">41.9K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short11">
+                <h4>boobycompilationbreasttitsshakingdancerhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" pster="rhyza_shorts_10012.jpg"
+                        src="rhyza_shorts_10013.mp4" playsinline loop controls>
+                    </video> 
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Dance compilation<span class="hashtag">#dance #boobs</span></h4>
+                    <p class="shorts-stats">61.5K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short12">
+                <h4>boobandcompilationicouldnotresistthefatbootytempationasstwerkbuttbumbumwaistrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" pster="rhyza_shorts_10012.jpg"
+                        src="rhyza_shorts_10014.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Big B**b and b**ty compilation<span class="hashtag">#compilation #twerk #boob</span></h4>
+                    <p class="shorts-stats">61.5K views</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title"></div>
+        <div class="video-grid normal-videos" id="normal-videos">
+            <div class="video-card" data-id="dance1" id="rhyza" id="officialrhyzavideowelcome">
+                <div class="video-thumb-container">
+                    <video muted preload="metadata" postr="rhyza_shorts_10015.jpg"
+                        src="rhyza_shorts_10015.mp4" playsinline
+                        loop controls>
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h4>rhyzatitsboobsbreastchestbouncingshakingnakednudecumworthypalyingdancingandwithdefinitelyrecent</h4>
+                        <img class="avatar" src="RhyzaNG.png" alt="Channel Avatar" onclick="window.open('RhyzaNG.png', '_blank')" />
+                    
+                            <p class="profile-name"><a href="verifiedrhyzer.html" style="text-decoration: none; color: black;">Rhyza<span class="superscript">ᴺᴳ</span><span class="verified-badge">
+  <img src="verifiedrhyzericon.png" alt="Verified" class="gear-check-icon" title="Official Verfied Account of Rhyza"></span></p></a> <span class="rank">Admin #1</span>
+  </div>
+                    <h3 class="video-title">Compilation</h3>
+                    <p class="video-desc">B**b, a55 compilation</p>
+                    <p class="video-stats">8.7K views • 17 days ago</p>
+                </div>
+            </div>
+            <div class="video-card" data-id="dance1" id="rhyza" id="officialrhyzavideowelcome">
+                <div class="video-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_18_video_20001.jpg"
+                        src="rhyza_18_video_20001.mp4" playsinline
+                        loop controls>
+                    </video>
+                </div>
+                <div class="video-info">
+                    <div class="video-meta">
+                        <h4>rhyzatitsboobsbreastchestbouncingshakingnakednudecumworthypalyingdancingandwithdefinitelyrecent</h4>
+                        <img class="avatar" src="rhyza.png" alt="Channel Avatar" onclick="window.open('Rhyza.png', '_blank')" />
+                    
+                            <p class="profile-name"><a href="verifiedrhyzer.html" style="text-decoration: none; color: black;" title="Rhyza Nigeria">Rhyza<span class="verified-badge">
+  <img src="verifiedrhyzericon.png" alt="Verified" class="gear-check-icon" title="Official Verfied Account of Rhyza"></span></p></a> <span class="rank">Admin #1</span>
+  </div>
+                    <h3 class="video-title">Tits bouncing</h3>
+                    <p class="video-desc">Playing and dancing with tits. Definitely cumworthy.</p>
+                    <p class="video-stats">4.9K views • 11 days ago</p>
+                </div>
+            </div>
+        </div>    
+
+            <div class="section-title">R <span style="color: #ff0078;">Pulse</span></div>
+        <div id="shorts">
+            <div class="shorts-card" data-id="short1">
+                <h4>twerkcompilationbootyshakingrhyzarpulse</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10003.jpg"
+                        src="rhyza_shorts_10003.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Twerk compilation<span class="hashtag">#twerk #booty</span></h4>
+                    <p class="shorts-stats">63.2K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short2">
+                <h4>girlfriendbyrugerrpulserhyzabootyshakingtwoladies</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10004.jpg"
+                        src="rhyza_shorts_10004.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Girlfriend by Ruger<span class="hashtag">#booty #shaking</span></h4>
+                    <p class="shorts-stats">11.1K views</p>
+                </div>
+            </div>
+             <div class="shorts-card" data-id="short3">
+                <h4>slowmobootybouncedancerhyzarpulseshaking</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10005.jpg"
+                        src="rhyza_shorts_10005.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Slow-mo b**ty bounce<span class="hashtag">#booty #bounce</span></h4>
+                    <p class="shorts-stats">132.6K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short4">
+                <h4>bigbootyphatfatassrpulserhyzatweakingthebigfordaddy</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10006.jpg"
+                        src="rhyza_shorts_10006.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Tweaking the big booty for daddy<span class="hashtag">#booty</span></h4>
+                    <p class="shorts-stats">67.2K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short5">
+                <h4>sexygorgeoussheisbootyshakeingrpulserhyza</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" postr="rhyza_shorts_10007.jpg"
+                        src="rhyza_shorts_10007.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">She is gorgeously sexy<span class="hashtag">#sexy</span></h4>
+                    <p class="shorts-stats">13.5K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short6">
+                <h4>wettitsexygorgeoustopchestboobchestrpulseryza</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poster="rhyza_shorts_10008.jpg"
+                        src="rhyza_shorts_10008.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Wetness increaseth the temptation better - Rhyza<span class="hashtag">#tit</span></h4>
+                    <p class="shorts-stats">54.7K views</p>
+                </div>
+            </div>
+            <div class="shorts-card" data-id="short7">
+                <h4>widinginthedessertbigbootymuslimarabbigphatfat</h4>
+                <div class="shorts-thumb-container">
+                    <video muted preload="metadata" poter="rhyza_shorts_10008.jpg"
+                        src="Adiga degay Qalbige idabiib 💃 iskukaris.mp4" playsinline loop controls>
+                    </video>
+                </div>
+                <div class="shorts-info">
+                    <h4 class="shorts-title">Wildin in the dessert<span class="hashtag">#booty</span></h4>
+                    <p class="shorts-stats">4.3K views</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shorts Modal -->
+<div id="shortsModal" class="shorts-modal">
+  <div class="shorts-modal-content">
+    <span class="close">&times;</span>
+    <video id="shortsVideo" controls muted autoplay loop></video>
+    <button class="back-btn">Uploaded by Rhyza<span class="verified-badge">
+  <img src="verifiedrhyzericon.png" alt="Verified" class="gear-check-icon" title="Official Verfied Account of Rhyza"></span></button>
+    <button  class="share-btn" title="Share"><i class="fa-solid fa-square-share-nodes"></i> </button>
+    <span class="watermark">Rhyza</span>
+    <button onclick="shareVideo()" class="follow-btn" title="Follow">+</button>
+          <span class="follow-txt">Follow</span>
+       <span class="err" id="globalErr" style="display:none;">Rhyza Video Not Available!</span>
+    <span class="share-txt">Share</span>
+    <button onclick="shareVideo()" class="comment-btn" title="Comment"><a href="//chat.whatsapp.com/EyxMFpH7ocyJqEl3l9koLl" style="text-decoration: none;">💬</a></button>
+              <span class="comment-txt">Comment</span>
+
+
+  </div>
+</div>
+
+
+<style>
+.shorts-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+  justify-content: center;
+  align-items: center;
+}
+
+.shorts-modal-content {
+  position: relative;
+  width: 360px;
+  height: 640px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.shorts-modal video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.watermark {
+  position: absolute;
+  top: 30px;
+  right: 4;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  opacity: 0.2;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+  .back-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background-color: blue;
+  border: none;
+  padding: 12px 18px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #a60000;
+  transform: scale(1.05);
+}
+
+.share-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 540px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+</style>
+
+        <script>
+            // Search functionality
+            document.getElementById('search-button').addEventListener('click', function () {
+                const query = document.getElementById('search-input').value.toLowerCase();
+                const allCards = document.querySelectorAll('.video-card, .shorts-card');
+                let matchesFound = false;
+        
+                allCards.forEach(card => {
+                    const title = card.querySelector('h3, h4').textContent.toLowerCase();
+                    if (title.includes(query)) {
+                        card.style.display = '';
+                        matchesFound = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+        
+                // Show or hide no results message
+                const noResultsMessage = document.getElementById('no-results-message');
+                if (!matchesFound) {
+                    noResultsMessage.style.display = 'inline-block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                }
+            });
+        
+            // Hover play/pause logic for videos
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.addEventListener('mouseenter', () => {
+                    video.play();
+                });
+                video.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0; // reset to start
+                });
+            });
+        </script>
+
+       
+
+<div id="video-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:black; z-index:1000; justify-content:center; align-items:center; justify-items: center; padding: 0px;">
+    <video id="video-player" controls autoplay style="max-height:100%; max-width:100%; object-fit:contain;"></video>
+   <button onclick="closeVideo()" class="floating-back-btn">⭮ Back</button>
+      <button class="webname">Rhyza™</button>
+          <span class="watermark">Rhyza</span>
+          <button onclick="shareVideo()" class="follow-btn" title="Follow">+</button>
+          <span class="follow-txt">Follow</span>
+          <button onclick="prevVideo()" id="goUpBtn" class="go-up-btn" style="display: none;" title="Previous">⬆</button>
+            <span class="previous-txt" id="goUpBtn">Prev</span>
+    <button onclick="nextVideo()" id="goDownBtn" class="go-down-btn" style="display: none;" title="Next">⬇</button>
+              <span class="next-txt" id="goDownBtn">Next</span> 
+     <!-- Share button below up/down -->
+    <button onclick="shareVideo()" class="share-btn" title="Share"><i class="fa-solid fa-square-share-nodes"></i></button>
+              <span class="share-txt">Share</span>
+    <button onclick="shareVideo()" class="comment-btn" title="Comment"><a href="https://chat.whatsapp.com/IYxhZytTdlOAsyLofFiLRz" style="text-decoration: none;">💬</a></button>
+              <span class="comment-txt">Comment</span>
+</div>
+
+
+
+<style>
+
+   .video-descs {
+    position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 653px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+   }
+
+  .back-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: gray;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    z-index: 999;
+    transition: 0.2s ease;
+  }
+
+  .back-btn:hover {
+    background: darkred;
+    transform: translateY(-2px);
+  }
+
+   .floating-back-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background-color: crimson;
+  border: none;
+  padding: 12px 18px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.floating-back-btn:hover {
+  background-color: #a60000;
+  transform: scale(1.05);
+}
+
+  .webname {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background-color: gray;
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.webname:hover {
+  background-color: #a60000;
+  transform: scale(1.05);
+}
+
+  .err {
+  position: fixed;
+  top: 300px;
+  left: 650px;
+  padding: 12px 20px;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.follow-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 151px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.follow-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 192px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.previous-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 297px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.next-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 377px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.comment-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 503px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.share-txt {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 603px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+
+.go-down-btn,
+.go-up-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 10px 14px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+}
+
+.go-down-btn {
+  top: 340px;
+}
+
+.go-up-btn {
+  top: 260px;
+}
+
+.share-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 560px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+.comment-btn {
+  position: fixed;
+  right: 4%;
+  transform: translateX(50%);
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 460px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(50%) translateY(0); }
+  50% { transform: translateX(50%) translateY(10px); }
+}
+
+</style>
+<style>
+    @media (max-width: 768px) {
+
+            header {
+            background: blue;
+            color: white;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0;
+        }
+            header h1 {
+                font-size: 1.9em;
+                letter-spacing: 1px;
+            }
+
+            header h2 {
+                display: none;
+            }
+
+            .search-bar input {
+                width: 75px;
+                font-size: 12px;
+            }
+
+            .search-bar button {
+                font-size: 11px;
+                width: 45px;
+            }
+
+            .search-icon {
+                display: none;
+            }
+
+            .normal-videos {
+                grid-template-columns: 1fr;
+            }
+
+            #shorts {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                margin: 30px 0;
+            }
+
+            .shorts-card {
+                width: 120px;
+            }
+
+            .supr {
+                display: none;
+            }
+            
+            .previous-txt {
+                display: none;
+            }
+.webname {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background-color: gray;
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.webname:hover {
+  background-color: #a60000;
+  transform: scale(1.05);
+}
+            
+.follow-btn {
+  position: fixed;
+  right: 21%;
+ 
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 151px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+.follow-txt {
+  position: fixed;
+  right: 4%;
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 192px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+.previous-txt {
+  position: fixed;
+  right: 4%;
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 297px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+.next-txt {
+  position: fixed;
+  right: 4%;
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 377px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+.comment-txt {
+  position: fixed;
+  right: 4%;
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 503px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+.share-txt {
+  position: fixed;
+  right: 4%;
+  border: none;
+  padding: 13px 2px;
+  font-size: 12px;
+  color: white;
+  border-radius: 100px;
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 603px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+
+.go-down-btn,
+.go-up-btn {
+  position: fixed;
+  right: 4%;
+  background: #222;
+  border: none;
+  padding: 10px 14px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  display: none;
+}
+
+.go-down-btn {
+  top: 340px;
+}
+
+.go-up-btn {
+  top: 260px;
+}
+
+.share-btn {
+  position: fixed;
+  right: 4%;
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 560px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+.comment-btn {
+  position: fixed;
+  right: 4%;
+  background: #222;
+  border: none;
+  padding: 13px 2px;
+  font-size: 22px;
+  color: white;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  animation: bounce 1.6s infinite ease-in-out;
+  top: 460px;  /* Below up (80px) and down (160px) buttons */
+  width: 50px;
+  text-align: center;
+  user-select: none;
+  display: none;
+}
+
+
+.watermark {
+  position: absolute;
+  top: 220px;
+  right: 4;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  opacity: 0.2;
+  text-align: center;
+}
+
+.shorts-card {
+    width: 120px;
+}
+
+
+        }
+    </style>
+
+</div>
+
+<script>
+    const videoCards = document.querySelectorAll('.video-card');
+    const videoOverlay = document.getElementById('video-overlay');
+    const videoPlayer = document.getElementById('video-player');
+
+    videoCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const video = card.querySelector('video');
+            videoPlayer.src = video.src;
+            videoOverlay.style.display = 'flex';
+        });
+    });
+
+    function closeVideo() {
+        videoOverlay.style.display = 'none';
+        videoPlayer.pause();
+        videoPlayer.src = '';
+    };
+
+</script>
+
+<script>
+    const shortCards = document.querySelectorAll('.shorts-card');
+
+    function closeShorts() {
+        shortsOverlay.style.display = 'none';
+        shortsPlayer.pause();
+        shortsPlayer.src = '';
+    };
+
+</script>
+
+
+<script>
+const videoeCards = document.querySelectorAll('.video-card');
+const videoeOverlay = document.getElementById('video-overlay');
+const videoePlayer = document.getElementById('video-player');
+const goUpeBtn = document.getElementById('goUpBtn');
+const goDoewnBtn = document.getElementById('goDownBtn');
+const shareeVideo = document.getElementById('shareVideo');
+
+let videoVideos = [];
+let currentIndex = 0;
+
+videoCards.forEach((card, index) => {
+    const video = card.querySelector('video');
+    videoVideos.push(video.src);
+
+    card.addEventListener('click', () => {
+        currentIndex = index;
+        showVideo(currentIndex);
+        videoOverlay.style.display = 'flex';
+    });
+});
+
+function showVideo(index) {
+    videoPlayer.src = videoVideos[index];
+    toggleNavButtons();
+}
+
+function toggleNavButtons() {
+    goUpBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+    goDownBtn.style.display = currentIndex < videoVideos.length - 1 ? 'block' : 'none';
+}
+
+function nextVideo() {
+    if (currentIndex < videoVideos.length - 1) {
+        currentIndex++;
+        showVideo(currentIndex);
+    }
+}
+
+function prevVideo() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        showVideo(currentIndex);
+    }
+}
+
+function closeVideo() {
+    videoOverlay.style.display = 'none';
+    videoPlayer.pause();
+    videoPlayer.src = '';
+}
+</script>
+
+<script>
+// (existing code remains the same above...)
+
+videoPlayer.addEventListener('ended', () => {
+    if (currentIndex < videoVideos.length - 1) {
+        nextVideo();
+    }
+});
+</script>
+<script>
+const videoCards = document.querySelectorAll('.video-card');
+const videoOverlay = document.getElementById('video-overlay');
+const videoPlayer = document.getElementById('video-player');
+const shareVideo = document.getElementById('shareVideo');
+
+
+let currentIndex = 0;
+let currentVideoTitle = '';
+
+// When user clicks a shorts card, play that video
+videoCards.forEach((card, index) => {
+  card.addEventListener('click', () => {
+    playVideoAt(index);
+    videoOverlay.style.display = 'flex';
+  });
+});
+
+// Play the video at index and update title, buttons
+function playShortAt(index) {
+  const card = shortsCards[index];
+  const video = card.querySelector('video');
+  const titleElem = card.querySelector('.video-title');
+
+  currentVideoTitle = titleElem ? titleElem.textContent : 'DanceVideo';
+
+  videoPlayer.src = video.src;
+  videoPlayer.autoplay = true;
+  videoPlayer.play();
+
+  currentIndex = index;
+  updateNavButtons();
+}
+
+// Show/hide Up/Down buttons depending on video index
+function updateNavButtons() {
+  document.querySelector('.go-up-btn').style.display = currentIndex > 0 ? 'block' : 'none';
+  document.querySelector('.go-down-btn').style.display = currentIndex < videoCards.length - 1 ? 'block' : 'none';
+}
+
+// Go to previous video
+function goUp() {
+  if (currentIndex > 0) playShortAt(currentIndex - 1);
+}
+
+// Go to next video
+function goDown() {
+  if (currentIndex < videoCards.length - 1) playShortAt(currentIndex + 1);
+}
+
+// Close the overlay and stop video
+function closeShorts() {
+  videoOverlay.style.display = 'none';
+  videoPlayer.pause();
+  videoPlayer.src = '';
+}
+</script>
+<script>
+function shareVideo() {
+  const videoPlayer = document.getElementById('#video-cardVideo');
+  const titleElement = document.querySelector('#video-card .video-title');
+
+  
+  
+
+  const currentVideoTitle = titleElement?.textContent || "dance_video";
+
+  let safeTitle = currentVideoTitle.trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+
+  const shareUrl = `https://rhyza.com/rhyza_${safeTitle}`;
+
+  if (navigator.share) {
+    navigator.share({
+      title: `Watch this dance video: ${currentVideoTitle}`,
+      url: shareUrl,
+    }).catch((error) => console.error('Error sharing:', error));
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(shareUrl)
+      .then(() => alert(`Share link copied to clipboard:\n${shareUrl}`))
+      .catch(() => alert("Failed to copy share link."));
+  } else {
+    prompt("Copy this link to share:", shareUrl);
+  }
+}
+</script>
+<script>
+document.querySelectorAll('.shorts-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const videoEl = card.querySelector('video');
+    const videoSrc = videoEl.currentSrc || videoEl.src;
+
+    const modal = document.getElementById('shortsModal');
+    const video = document.getElementById('shortsVideo');
+
+    video.src = videoSrc;
+    modal.style.display = 'flex';
+    video.play();
+  });
+});
+
+document.querySelector('.shorts-modal .close').addEventListener('click', () => {
+  const modal = document.getElementById('shortsModal');
+  const video = document.getElementById('shortsVideo');
+
+  modal.style.display = 'none';
+  video.pause();
+  video.src = '';
+});
+
+// Close on background click
+document.getElementById('shortsModal').addEventListener('click', (e) => {
+  if (e.target.id === 'shortsModal') {
+    const modal = document.getElementById('shortsModal');
+    const video = document.getElementById('shortsVideo');
+    modal.style.display = 'none';
+    video.pause();
+    video.src = '';
+  }
+});
+</script>
+<script>
+const shortCards = document.querySelectorAll('.shorts-card');
+const goUpBtn = document.getElementById('goUpBtn');
+const goDownBtn = document.getElementById('goDownBtn');
+
+
+function toggleNavButtons() {
+    goUpBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+    goDownBtn.style.display = currentIndex < shortsVideos.length - 1 ? 'block' : 'none';
+}
+
+function nextShorts() {
+    if (currentIndex < videoVideos.length - 1) {
+        currentIndex++;
+        showShorts(currentIndex);
+    }
+}
+
+function prevShorts() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        showShorts(currentIndex);
+    }
+}
+
+function closeShorts() {
+    shortsOverlay.style.display = 'none';
+    shortsPlayer.pause();
+    shortsPlayer.src = '';
+}
+</script>
+
+<script>
+// (existing code remains the same above...)
+
+videoPlayer.addEventListener('ended', () => {
+    if (currentIndex < videoVideos.length - 1) {
+        nextVideo();
+    }
+});
+</script>
+<script>
+  const errMsg = document.getElementById('globalErr');
+  const videos = document.querySelectorAll('video');
+
+  let anyPlayable = false;
+  let checkedCount = 0;
+
+  videos.forEach(video => {
+    const source = video.querySelector('source');
+    const src = source ? source.getAttribute('src') : null;
+
+    // Check if source is missing or invalid
+    if (!src || src.trim() === '' || src.includes('undefined')) {
+      checkedCount++;
+    } else {
+      // Try loading the video
+      video.addEventListener('loadeddata', () => {
+        anyPlayable = true;
+        errMsg.style.display = 'none';
+      });
+
+      video.addEventListener('error', () => {
+        checkedCount++;
+        if (checkedCount === videos.length && !anyPlayable) {
+          errMsg.style.display = 'block';
+        }
+      });
+
+      // Trigger loading (safeguard)
+      video.load();
+    }
+  });
+
+  // If no videos at all
+  if (videos.length === 0) {
+    errMsg.style.display = 'block';
+  }
+</script>
+
+
+<footer>© 2025 Rhyza. All rights reserved.</footer>
+
+</body>
+</html>
